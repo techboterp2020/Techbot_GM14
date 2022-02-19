@@ -1,0 +1,197 @@
+<odoo>
+    <template id="report_estimate_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <h2>
+                        <t t-esc="o.name"/>
+                    </h2>
+                    <table id="table"
+                           style="border:1px;font-size:12px;width:100%;font-family: 'Alata';"
+                           cellspacing="5" cellpadding="0">
+                        <tr style="border:1px;">
+                            <td style="border:1px;font-size:12px;color:#003d99;background-color:#CDCDCD;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;">
+                                Date
+                            </td>
+                            <td style="border:1px;width:20%;font-size:12px;padding:5px 5px 5px 5px;font-family: 'Alata';">
+                                <t t-esc="o.date" t-field-options="{'format': 'dd/MM/yyyy'}"/>
+                            </td>
+
+                            <td style="border:1px;color:#003d99;font-size:12px;background-color:#CDCDCD;width:20%;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';">
+                                Doc No
+                            </td>
+                            <td style="border:1px;width:100%;font-size:12px;padding:5px 0px 0px 5px;font-family: 'Alata';">
+                                <t t-esc="o.name"/>
+                            </td>
+                        </tr>
+                        <tr style="border:1px;">
+                            <td style="border:1px;color:#003d99;font-size:12px;background-color:#CDCDCD;width:20%;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';">
+                                CRM Sequence
+                            </td>
+                            <td style="border:1px;width:260px;padding:5px 0px 0px 5px;font-size:12px;font-family: 'Alata';">
+                                <t t-esc="o.crm_sequence"/>
+                            </td>
+
+                            <td style="border:1px;color:#003d99;background-color:#CDCDCD;width:50px;font-size:12px;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';">
+                                Estimate Description
+                            </td>
+                            <td style="border:1px;width:20%;padding:5px 0px 0px 5px;font-size:12px;font-family: 'Alata';">
+                                <t t-esc="o.notes_crm"/>
+                            </td>
+                        </tr>
+                        <tr style="border:1px;"></tr>
+                        <tr style="border:1px;"></tr>
+                    </table>
+                    <br/>
+                    <table id="table"
+                           style="border:1px;font-size:12px;width:100%;font-family: 'Alata';"
+                           cellspacing="5" cellpadding="0">
+                        <tr style="border:1px;">
+                            <td style="border:1px;font-size:12px;color:#003d99;background-color:#CDCDCD;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;">
+                                Expected Delivery
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;text-align:left;">
+                                <t t-esc="o.expected_delivery"/>
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;background-color:#CDCDCD;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;">
+                                Site Visit Required
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;text-align:left;">
+                                <t t-esc="o.site_visit"/>
+                            </td>
+                        </tr>
+                        <tr style="border:1px;">
+                            <td style="border:1px;font-size:12px;color:#003d99;background-color:#CDCDCD;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;">
+                                Technical Visit Required
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;text-align:left;">
+                                <t t-esc="o.technical_visit"/>
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;background-color:#CDCDCD;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;">
+                                Location
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;text-align:left;">
+                                <t t-esc="o.location"/>
+                            </td>
+                        </tr>
+                        <tr style="border:1px;">
+                            <td style="border:1px;font-size:12px;color:#003d99;background-color:#CDCDCD;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;">
+                                Point Of Contact/Contact no/Email
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;text-align:left;">
+                                <t t-esc="o.poc"/>
+                                <t t-esc="o.contact_no"/>
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;background-color:#CDCDCD;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;">
+                                Permission Required
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;text-align:left;">
+                                <t t-esc="o.permission"/>
+                            </td>
+                        </tr>
+                        <tr style="border:1px;">
+                            <td style="border:1px;font-size:12px;color:#003d99;background-color:#CDCDCD;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;">
+                                Boom Lift Required
+                            </td>
+                            <td style="border:1px;font-size:12px;color:#003d99;padding:5px 5px 5px 5px;font-weight: bold;font-family: 'Alata';width:50px;text-align:left;">
+                                <t t-esc="o.boom_lift"/>
+                                <br/>
+                                <t t-esc="o.boom_lift_desc"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table id="table" class="table table-bordered table-sm"
+                           style="border-radius:0px;font-size:12px; border-collapse: collapse;font-family:'Alata';margin-top:-10%">
+                        <tr class="border-black">
+                            <td style="padding:5px;">
+                                <p style="font-weight: bold;">Product Name</p>
+                            </td>
+                            <td style="padding:5px;">
+                                <p style="font-weight: bold;">Quantity</p>
+                            </td>
+                            <td style="padding:5px;">
+                                <p style="font-weight: bold;">UoM</p>
+                            </td>
+                        </tr>
+                        <tbody>
+                            <tr t-foreach="o.product_estimate_lines" t-as="line">
+                                <tr style="border: 1px solid black;">
+                                    <td style="padding:5px;border: 1px solid black;width=50%;background-color:#CDCDCD;">
+                                        <t t-esc="line.name.name"/>
+                                    </td>
+
+                                    <td style="padding:5px;border: 1px solid black;width=50%;background-color:#CDCDCD;">
+                                        <t t-esc="line.qty"/>
+                                    </td>
+
+                                    <td style="padding:5px;border: 1px solid black;width=50%;background-color:#CDCDCD;">
+                                        <t t-esc="line.uom_id.name"/>
+
+                                        <tr>
+                                            <br/>
+                                            <br/>
+                                            <tr>
+                                                <th style="padding:5px;border: 1px solid black;">
+                                                    <p>Product BOM</p>
+                                                </th>
+
+                                                <th style="padding:5px;border: 1px solid black;">
+                                                    <p>Length</p>
+                                                </th>
+
+                                                <th style="padding:5px;width:10%;border: 1px solid black;">
+                                                    <p>Breadth</p>
+                                                </th>
+
+                                                <th style="padding:5px;border: 1px solid black;">
+                                                    <p>QTY</p>
+                                                </th>
+                                                <th style="padding:5px;border: 1px solid black;">
+                                                    <p>Unit</p>
+                                                </th>
+                                            </tr>
+                                        </tr>
+                                        <tr t-foreach="parameter_list" t-as="test">
+                                            <t t-if="test['product_bom_id'] == line.id">
+                                                <tr>
+                                                    <td style="padding:5px;">
+                                                        <t t-esc="test['product_id']"/>
+                                                    </td>
+
+                                                    <td style="padding:5px;">
+                                                        <t t-esc="test['prod_length']"/>
+                                                    </td>
+
+                                                    <td style="padding:5px;">
+                                                        <t t-esc="test['prod_breadth']"/>
+                                                    </td>
+
+                                                    <td style="padding:5px;">
+                                                        <t t-esc="test['qty']"/>
+                                                    </td>
+                                                    <td style="padding:5px;">
+                                                        <t t-esc="test['uom_id']"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <break/>
+                                        </tr>
+                                    </td>
+                                </tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--                    <div class="footer">-->
+                    <!--                        <center>-->
+                    <!--                            <p>Altamyz Advertising LLC</p>-->
+                    <!--                        </center>-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                    <!--            </t>-->
+                </t>
+                /
+            </t>
+        </t>
+    </template>
+</odoo>

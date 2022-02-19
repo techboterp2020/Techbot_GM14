@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--        this is for the receipt form-->
+
+       <record id="estimate_report" model="ir.actions.report">
+            <field name="name">Estimate Report</field>
+            <field name="model">product.costing</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">costing.report_estimate_template</field>
+            <field name="report_file">costing.report_estimate_template</field>
+            <field name="print_report_name">'Estimate - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_product_costing"/>
+       </record>
+
+</odoo>

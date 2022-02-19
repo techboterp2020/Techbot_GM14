@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_costing,product.costing,model_product_costing,,1,1,1,1
+access_product_estimate_lines,product.estimate.lines,model_product_estimate_lines,,1,1,1,1
+access_product_bom_lines,product.bom.lines,model_product_bom_lines,,1,1,1,1
+access_crm_lead,crm.lead,model_crm_lead,,1,1,1,1
+access_product_product,product.product,model_product_product,,1,1,1,1
+access_product_product,product.product,model_product_product,,1,1,1,1
+access_mrp_production,mrp.production,model_mrp_production,,1,1,1,1
+access_stock_move,stock.move,model_stock_move,,1,1,1,1
+access_product_crm_lines,product.crm.lines,model_product_crm_lines,,1,1,1,1
+access_crm_product_lines,crm.product.lines,model_crm_product_lines,,1,1,1,1

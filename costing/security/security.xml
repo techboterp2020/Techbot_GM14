@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_costing">
+            <field name="name">Costing</field>
+            <field name="description">Allows access to costing module</field>
+            <field name="sequence">41</field>
+        </record>
+        <!--  VVMARINE ADMIN  -->
+        <record model="res.groups" id="techbot_costing">
+            <field name="name">Estimator Admin</field>
+            <field name="category_id" ref="module_costing"/>
+        </record>
+    </data>
+</odoo>

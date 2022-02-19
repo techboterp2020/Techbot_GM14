@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_costing_form_view" model="ir.ui.view">
+            <field name="name">Product Estimate</field>
+            <field name="model">product.costing</field>
+            <field name="arch" type="xml">
+                <form string="Product Estimate">
+
+                    <header>
+                        <button name="reset_button" type="object" string="Set To Draft"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('status','=',('draft'))]}" icon="fa-level-down"/>
+                        <button name="confirm_button" type="object" string="Confirm"
+                                class="oe_highlight" icon="fa-check"
+                                attrs="{'invisible': [('status','=',('confirm'))]}"
+                                confirm="Are you sure you have estimated all the needed materials?"/>
+                        <button name="create_manufacturing_orders" type="object" string="Create MO"
+                                class="oe_highlight" icon="fa-wrench"
+                                attrs="{'invisible': [('sale_order_confrim','=', False)]}"/>
+
+                        <field name="status" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"
+                               statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="costing_to_manufacture_smart_button" type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-wrench" attrs="{'invisible': [('sale_order_confrim','=', False)]}">
+                                <field name="production_count" widget="statinfo" string="Manufacturing"/>
+                            </button>
+
+                            <button name="costing_to_sale_smart_button" type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-money" attrs="{'invisible': [('sale_order_confrim','=', False)]}">
+                                <field name="sales_count" widget="statinfo" string="Sales"/>
+                            </button>
+                        </div>
+                        <templates id="template" xml:space="preserve">
+                        <t>
+                          <center>  <div style="background-color: #007a77;
+                              width: 300px;
+                              border: 2px solid #007a77;
+                              padding: 3px 3px 3px 3px;
+                              margin: 20px;
+                              color:#007a77;
+                              font-size:12px;
+                              text-align:center" attrs="{'invisible': [('sale_order_confrim','=', False)]}">
+                                <h3 style="color:white;">
+                                        Sale Order Confirmed, proceed for production
+                                </h3>
+                            </div>
+                            </center>
+                        </t>
+                    </templates>
+                        <group>
+                            <group>
+                                <div class="oe_title">
+                                    <h1>
+                                        <field name="name" readonly="1"/>
+                                    </h1>
+                                </div>
+                            </group>
+                            <group></group>
+                            <group>
+                                <field name="crm_sequence" readonly="1"/>
+                                <field name="crm_ref" readonly="1"/>
+                                <field name="date" readonly="1"/>
+                                <field name="sale_order_confrim" invisible="1" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="notes_crm"/>
+                                <field name="tags_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Product Details">
+                                <field name="product_estimate_lines" nolabel="1">
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="crm_sequence"/>
+                                                <field name="name"
+                                                       options="{'no_open':True,'no_create':1,'no_create_edit':1}"
+                                                       domain="[('sale_ok', '=', True),('purchase_ok', '=', False)]"/>
+                                                <field name="qty"/>
+                                                <field name="confirm_product" widget="boolean_toggle"/>
+
+                                                <!--                                                <button type="object" name="action_create_mrp" string="Create MRP"/>-->
+                                            </group>
+                                            <group>
+                                                <field name="uom_id"
+                                                       options="{'no_open':True,'no_create':1,'no_create_edit':1}"/>
+                                                <field name="cost"/>
+                                                <field name="is_manufacturing" widget="boolean_toggle"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="estimate_product_ids"/>
+                                        </group>
+                                        <group>
+                                            <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                                <field name="margin" widget="monetary"/>
+                                                <field name="total_cost" widget="monetary"/>
+                                                <field name="mo_done" invisible="1"/>
+                                                <field name="so_done" invisible="1"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                    <tree>
+                                        <field name="crm_sequence"/>
+                                        <field name="name"
+                                               options="{'no_open':True,'no_create':1,'no_create_edit':1}"/>
+                                        <field name="qty"/>
+                                        <field name="uom_id"
+                                               options="{'no_open':True,'no_create':1,'no_create_edit':1}"/>
+                                        <field name="cost"/>
+                                        <field name="estimate_product_ids"/>
+                                    </tree>
+                                </field>
+                                <group>
+                                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                        <field name="margin" widget="monetary"/>
+                                        <field name="total_cost" widget="monetary"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Questionnaire Info">
+                                <group>
+                                    <group>
+                                        <field name="expected_delivery"/>
+                                        <field name="site_visit"/>
+                                        <field name="technical_visit"/>
+                                        <field name="location"/>
+
+                                    </group>
+                                    <group>
+                                        <field name="poc"/>
+                                        <field name="contact_no"/>
+                                        <field name="permission"/>
+                                        <field name="boom_lift"/>
+                                        <field name="boom_lift_desc"/>
+                                    </group>
+
+                                </group>
+
+                            </page>
+                            <page string="Sales Info">
+                                <group>
+                                    <group>
+                                        <field name="sale_id" readonly="1"/>
+                                        <field name="salesperson_id" readonly="1" widget="many2one_avatar_user"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="product_costing_tree_view" model="ir.ui.view">
+            <field name="name">Product Estimate</field>
+            <field name="model">product.costing</field>
+            <field name="arch" type="xml">
+                <tree string="Product Estimate">
+                    <field name="name"/>
+                    <field name="crm_sequence"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_product_costing_view" model="ir.actions.act_window">
+            <field name="name">Product Costing</field>
+            <field name="res_model">product.costing</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face" icon="fa-bar-chart-o">
+                    Techbot ERP
+                </p>
+                <p>
+                    Create a new Record
+                </p>
+            </field>
+        </record>
+        <menuitem id="root_costing" name="Costing" web_icon="costing,static/description/icon.png"
+                  sequence="0"/>
+        <menuitem action="" id="menu_main_root_costing" name="Costing"
+                  parent="root_costing" sequence="0"/>
+        <menuitem action="action_product_costing_view" id="menu_action_product_costing_view" name="Estimate"
+                  parent="menu_main_root_costing" sequence="1"/>
+
+
+        <!--     product_estimate_lines-->
+
+
+        <record id="product_bom_form_view" model="ir.ui.view">
+            <field name="name">Product BOM</field>
+            <field name="model">product.bom.lines</field>
+            <field name="arch" type="xml">
+                <form string="Product Estimate">
+                    <header>
+                        <field name="status" widget="statusbar" options="{'fold_field': 'fold'}"
+                               statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="crm_sequence" force_save="1"/>
+                                    <field name="product_id"
+                                           options="{'no_open':True,'no_create':1,'no_create_edit':1}"
+                                           domain="[('sale_ok', '=', False),('purchase_ok', '=', True)]"/>
+                                    <field name="prod_length"/>
+                                    <field name="prod_breadth"/>
+                                    <field name="qty"/>
+                                </group>
+                                <group>
+                                    <field name="uom_id" options="{'no_open':True,'no_create':1,'no_create_edit':1}"/>
+                                    <field name="cost" force_save="1"/>
+                                    <field name="proposed_cost" force_save="1"/>
+                                </group>
+                            </group>
+                        </form>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="product_bom_tree_view" model="ir.ui.view">
+            <field name="name">Product BOM</field>
+            <field name="model">product.bom.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Product Estimate">
+                    <field name="crm_sequence"/>
+                    <field name="product_id"/>
+                    <field name="prod_length"/>
+                    <field name="prod_breadth"/>
+                    <field name="qty"/>
+                    <field name="uom_id"/>
+                    <field name="cost" sum="cost"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_product_bom_view" model="ir.actions.act_window">
+            <field name="name">Product BOM</field>
+            <field name="res_model">product.bom.lines</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face" icon="fa-bar-chart-o">
+                    Techbot ERP
+                </p>
+                <p>
+                    Create a new Record
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="action_product_bom_view" id="menu_action_product_bom_view" name="Product Bom"
+                  parent="menu_main_root_costing" sequence="2"/>
+
+        <!--        This is the CRM inherit-->
+        <record id="crm_inherit_view" model="ir.ui.view">
+            <field name="name">crm_inherit_view</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="send_to_estimate" type="object" string="Send to Estimate"
+                            attrs="{'invisible': [('sent_estimate','=',True)]}" icon="fa-arrow-circle-right"
+                            class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="sent_estimate" invisible="1"/>
+                    <field name="estimate" invisible="1"/>
+                    <templates id="template" xml:space="preserve">
+                        <t>
+                          <center>  <div style="background-color: #007a77;
+                              width: 200px;
+                              border: 2px solid  #007a77;
+                              padding: 5px;
+                              margin: 20px;
+                              color:#eb345b;
+                              font-size:15px;
+                              text-align:center" attrs="{'invisible': [('estimate','=', True)]}">
+                                <h3 style="color:white;">
+                                        Estimation Pending
+                                </h3>
+                            </div>
+                            </center>
+                        </t>
+                    </templates>
+
+                    <templates id="template" xml:space="preserve">
+                        <t>
+                          <center>  <div style="background-color: #007a77;
+                              width: 200px;
+                              border: 2px solid  #007a77;
+                              padding: 5px;
+                              margin: 20px;
+                              color:#eb345b;
+                              font-size:15px;
+                              text-align:center" attrs="{'invisible': [('estimate','=', False)]}">
+                                <h3 style="color:white;">
+                                        Estimate Done
+                                </h3>
+                            </div>
+                            </center>
+                        </t>
+                    </templates>
+                </xpath>
+                <xpath expr="//field[@name='description']" position="attributes">
+                    <attribute name="required">True</attribute>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Customer Product Details">
+                        <field name="saleperson_product_line">
+                            <tree editable="bottom">
+                                <field name="direct_material_id"
+                                       domain="[('sale_ok', '=', True),('purchase_ok', '=', False)]"/>
+                                <field name="uom_id"/>
+                                <field name="qty"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="costing_sale_inherit_view" model="ir.ui.view">
+            <field name="name">costing_sale_inherit_view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="costing_to_manufacture_smart_button" type="object"
+                            class="oe_stat_button"
+                            icon="fa-wrench" attrs="{'invisible': [('state','in',('draft','sent','cancel'))]}">
+                        <field name="production_count" widget="statinfo" string="Manufacturing"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="crm_sequence" options="{'no_open':True,'no_create':1,'no_create_edit':1}"/>
+                    <field name="estimate_sequence"/>
+                </xpath>
+                <!--                <xpath expr="//header" position="inside">-->
+                <!--                    <button name="send_mail_production" type="object" string="Notify Production"-->
+                <!--                            attrs="{'invisible': [('state','in',('draft','sent','cancel'))]}" icon="fa-bell"/>-->
+                <!--                </xpath>-->
+            </field>
+        </record>
+
+        <record id="costing_product_product_inherit_view" model="ir.ui.view">
+            <field name="name">costing_product_product_inherit_view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="before">
+                    <field name="available_for_estimate"/>
+                    <field name="width" force_save="1"/>
+                    <field name="height" force_save="1"/>
+                    <field name="area_per_unit" force_save="1"/>
+                    <field name="area_available" force_save="1"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Product BOM">
+                        <field name="product_crm_ids">
+                            <tree editable="bottom">
+                                <field name="direct_material_id"
+                                       domain="[('sale_ok', '=', False),('purchase_ok', '=', True)]"/>
+                                <field name="uom_id"/>
+                                <field name="width"/>
+                                <field name="height"/>
+                                <field name="area"/>
+                                <field name="qty"/>
+                                <field name="cost"/>
+                                <field name="total_cost" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="costing_mrp_production_inherit_view" model="ir.ui.view">
+            <field name="name">costing_mrp_production_inherit_view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <field name="estimate_sequence"/>
+                    <field name="sale_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="product_estimate_form_view" model="ir.ui.view">
+            <field name="name">Product Esimate</field>
+            <field name="model">product.estimate.lines</field>
+            <field name="arch" type="xml">
+                <form string="Product Estimate">
+                    <header>
+                        <field name="status" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"
+                               statusbar_visible="draft,confirm"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="crm_sequence"/>
+                            <field name="estimate_sequence"/>
+                            <field name="name"/>
+                            <field name="qty"/>
+                            <field name="uom_id"/>
+                            <field name="confirm_product" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="cost"/>
+                            <field name="margin"/>
+                            <field name="total_cost"/>
+                            <field name="is_manufacturing" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Bom Products">
+                            <field name="estimate_product_ids">
+                                <tree editable="bottom">
+                                    <field name="crm_sequence"/>
+                                    <field name="product_id"/>
+                                    <field name="prod_length"/>
+                                    <field name="prod_breadth"/>
+                                    <field name="qty"/>
+                                    <field name="uom_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="product_estimate_tree_view" model="ir.ui.view">
+            <field name="name">Product Esimate</field>
+            <field name="model">product.estimate.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Product Estimate">
+                    <field name="crm_sequence"/>
+                    <field name="estimate_sequence"/>
+                    <field name="name"/>
+                    <field name="qty"/>
+                    <field name="uom_id"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_product_estimate_view" model="ir.actions.act_window">
+            <field name="name">Product Estimate</field>
+            <field name="res_model">product.estimate.lines</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face" icon="fa-bar-chart-o">
+                    Techbot ERP
+                </p>
+                <p>
+                    Create a new Record
+                </p>
+            </field>
+        </record>
+        <menuitem action="action_product_estimate_view" id="menu_action_product_estimate_view" name="Product Bom Lines"
+                  parent="menu_main_root_costing" sequence="12"/>
+
+        <menuitem action="" id="menu_action_workorders_view" name="Scheduling"
+                  parent="menu_main_root_costing" sequence="12"/>
+    </data>
+</odoo>

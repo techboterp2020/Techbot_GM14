@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="email_template_confirmation_report" model="mail.template">
+            <field name="name">Production: Start Production</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="email_from">sales@altamyz.ae</field>
+            <field name="email_to">production@altamyz.ae,design@altamyz.ae,operations@altamyz.ae</field>
+            <field name="subject"> Production for ${object.crm_sequence.name}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear Team,
+                        <br/>
+                        <br/>
+                        Please start the production for ${object.estimate_sequence}
+                        <br/>
+                        <br/>
+                        Click the link to view the record..
+                        <br/>
+                        "http://localhost:8000/web#id=${object.estimate_sequence_id}&amp;action=654&amp;model=product.costing&amp;view_type=form&amp;cids=1&amp;menu_id=443"
+                    </p>
+                </div>
+            </field>
+
+<!--            <field name="report_template" ref="lab_test_report"/>-->
+<!--            <field name="report_name">Lab Report</field>-->
+<!--            <field name="auto_delete" eval="True"/>-->
+        </record>
+    </data>
+</odoo>
