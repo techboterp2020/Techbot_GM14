@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="hr_salary_rule_loan" model="hr.salary.rule">
+        <field name="name">Loan Deduction</field>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="code">LOAN</field>
+        <field name="sequence" eval="140"/>
+        <field name="struct_id" ref="loan_management.payroll_salary_structure_002"/>
+         <field name="condition_select">none</field>
+        <field name="amount_select">fix</field>
+        <field name="quantity">0.0</field>
+        <field name="amount_fix">0.00</field>
+    </record>
+</odoo>

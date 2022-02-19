@@ -1,0 +1,32 @@
+<odoo>
+  <data>
+        <record id="acquirer_form_hylo" model="ir.ui.view">
+            <field name="name">Hylo Acquirer Form</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="acquirer"]' position='after'>
+                    <group attrs="{'invisible': [('provider', '!=', 'hylo')]}">
+                        <field name="hylo_merchant_id"/>
+                        <field name="hylo_merchant_key"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+      <record id="transaction_form_extend_hylo" model="ir.ui.view">
+          <field name="name">Payment Transaction View Extend</field>
+          <field name="model">payment.transaction</field>
+          <field name="inherit_id" ref="payment.transaction_form"/>
+          <field name="arch" type="xml">
+              <field name="reference" position="after">
+                  <field name="acquirer_name" invisible="1"/>
+                  <field name="sale_order_id"/>
+                  <field name="hylo_checkout_id" string="Hylo Checkout Id"
+                         attrs="{'invisible': [('acquirer_name', '!=', 'hylo')]}"/>
+              </field>
+          </field>
+      </record>
+            <menuitem id="root_return" name="HyloBiz" web_icon="return_order,static/description/icon.png" sequence="0"/>
+
+  </data>
+</odoo>

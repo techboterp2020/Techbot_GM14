@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_overtime_tree" model="ir.ui.view">
+        <field name="name">hr.overtime.tree</field>
+        <field name="model">hr.overtime</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Overtime Management">
+                <field name="name"/>
+                <field name="employee_id" widget="many2one_avatar_employee"/>
+                <field name="date_overtime"/>
+                <field name="no_of_hr"/>
+                <field name="note"/>
+<!--                <field name="state"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_overtime_form" model="ir.ui.view">
+        <field name="name">hr.overtime.form</field>
+        <field name="model">hr.overtime</field>
+        <field name="arch" type="xml">
+            <form string="Employee Obertime Management">
+<!--                <header>-->
+<!--                    &lt;!&ndash;                    </>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <field name="state" widget="statusbar"/>&ndash;&gt;-->
+<!--                </header>-->
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h3>
+                            <field name="name" class="oe_inline" readonly="1"/>
+                        </h3>
+                    </div>
+                    <group string="Employee Details">
+                        <group>
+                            <field name="employee_id" />
+                            <field name="date_overtime"/>
+                        </group>
+                        <group>
+                            <field name="no_of_hr"/>
+                            <field name="is_used_payslip"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note"  string="Description"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_employee_overtime">
+        <field name="name">Employee Overtime Management</field>
+        <field name="res_model">hr.overtime</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to define a new loan.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hr_overtime" parent="hr.menu_hr_root" name="Employee Overtime Management" sequence="14"/>
+    <menuitem name="Employee Overtime Details" groups="base.group_user" id="menu_employee_overtime"
+              parent="menu_hr_overtime" action="action_employee_overtime" sequence="1"/>
+
+</odoo>

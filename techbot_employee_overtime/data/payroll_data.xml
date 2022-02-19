@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+        <!-- Overtime Allowance -->
+        <record id="hr_salary_rule_overtime_allowance" model="hr.salary.rule">
+            <field name="name">Overtime Allowance</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">Overtime</field>
+            <field name="condition_select">none</field>
+<!--            <field name="condition_python">result = contract.overtime_hours * contract.overtime_rate</field>-->
+            <field name="sequence" eval="30"/>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="loan_management.payroll_salary_structure_002"/>
+            <field name="amount_python_compute">result = contract.overtime_hours * contract.overtime_rate</field>
+        </record>
+
+    </data>
+</odoo>

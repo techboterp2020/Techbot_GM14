@@ -1,0 +1,141 @@
+<odoo>
+    <template id="quality_outgoing_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <style>
+
+                        table, th, td {
+                        border: 1px solid black;
+                        width: 100%;
+                        font-family: "Sofia", sans-serif;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 8px;
+                        text-align: center;
+                        font-family: "Sofia", sans-serif;
+                        }
+                    </style>
+                    <t t-foreach='o.quality_control_line' t-as='line'>
+
+                    <table style="border:1px solid black; border-collapse: collapse; width:100%;">
+                        <tr>
+                            <td colspan="3">
+                                <img src="purchase_sealtech/static/src/img/logo.png" style="width:60%; height:40;"/>
+                            </td>
+                            <td  colspan="11">
+                                    <center><b>OUTGOING MATERIAL INSPECTION REPORT</b></center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>CUSTOMER NO</b></td>
+                            <td colspan="7"><t t-esc="o.stock_picking_id.partner_id.name"/></td>
+                            <td colspan="2"><b>DOCUMENT.SL NO</b></td>
+                            <td colspan="2"><b></b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>JOB ORDER NO</b></td>
+                            <td colspan="7"></td>
+                            <td colspan="2"><b>DATE</b></td>
+                            <td colspan="2"><b><t t-esc="o.create_date"/></b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>PURCHASE ORDER NO</b></td>
+                            <td colspan="7"><t t-esc="o.stock_picking_id.origin"/></td>
+                            <td colspan="2"><b>STOCK NO</b></td>
+                            <td colspan="2"><b><t t-esc="o.stock_picking_id.name"/></b></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">SL NO</td>
+                            <td rowspan="2">PART NO</td>
+                            <td rowspan="2">DESCRIPTION</td>
+                            <td colspan="6">INSPECTION DETAILS</td>
+                            <td rowspan="2">TOTAL RECEIVED QUANTITY</td>
+                            <td rowspan="2">TOTAL ACCEPTED QUANTITY</td>
+                            <td rowspan="2">TOTAL REJECTED QUANTITY</td>
+                            <td rowspan="2">BATCH.NO</td>
+                            <td rowspan="2">CURE DATE</td>
+                        </tr>
+                        <tr>
+                            <td>OD</td>
+                            <td>ID</td>
+                            <td>C/S</td>
+                            <td>THICKNESS</td>
+                            <td>HARDNESS</td>
+                            <td>APPEARENCE</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><t t-esc="line.product_id.name"/></td>
+                            <td><t t-esc="line.product_id.name"/></td>
+                            <td><t t-esc="line.od_no"/></td>
+                            <td><t t-esc="line.id_no"/>   </td>
+                            <td><t t-esc="line.cs_no"/></td>
+                            <td><t t-esc="line.thikness"/></td>
+                            <td><t t-esc="line.hardness"/></td>
+                            <td><t t-esc="line.apperance"/></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><t t-esc="line.batch_no"/></td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4">Equipment used for Inspection:</td>
+                            <td colspan="6">Standards used for Inspection:</td>
+                            <td colspan="2">Documents Attached:</td>
+                            <td>Certificate No:</td>
+                            <td>(✓/✕)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">1.Digital Caliper: SN0091249</td>
+                            <td colspan="7">1.Visual Inspection as per:ISO 3601-3 Standard</td>
+                            <td colspan="2">(2.1)Certificate of conformity</td>
+                            <td>sicoc/</td>
+                            <td/>
+                        </tr>
+                        <tr>
+                            <td colspan="3">2.Digital Durometer: SN239511111</td>
+                            <td colspan="7">2.Sampling Inspection as per: ISO 2859-1:1999(E),AQL in percent
+                                nonconforming items and non conformities per 100 items=1,0(Normal inspection)
+                            </td>
+                            <td colspan="2">(2.2)Dimensional Inspection Report</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10">NOTE:</td>
+                            <td colspan="2">(3.1)Material Test Certificate:</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="14">
+                                <p>It is certified that the goods detailed here on have been manufactured in accordance
+                                    with the condition and requirements of the purchase order with regards to the
+                                    fulfillment of the material requirements, accuracy of gauge, tolerances and surface
+                                    quality.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                Checked by:
+                                <br/>
+                                Date:
+                            </td>
+                            <td colspan="8">
+                                Approved:
+                                <br/>
+                                Date:
+                            </td>
+                        </tr>
+                    </table>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

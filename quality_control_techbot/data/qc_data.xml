@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="sequence_qc" model="ir.sequence">
+        <field name="name">Quality Control Sequence</field>
+        <field name="code">quality_control</field>
+        <field name="prefix">QC/</field>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="True" name="use_date_range"/>
+        <field name="padding">4</field>
+    </record>
+</odoo>

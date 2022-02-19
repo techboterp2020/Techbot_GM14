@@ -1,0 +1,16 @@
+
+<odoo>
+    <data noupdate="1">
+        <record id="pay_hylo_acquirer" model="payment.acquirer">
+            <field name="name">Hylo</field>
+            <field name="provider">hylo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="view_template_id" ref="hylo_button"/>
+            <field name="state">test</field>
+            <field name="pre_msg"><![CDATA[
+<p>You will be redirected to the Hylo payment window after clicking on the payment button.</p>]]></field>
+            <field name="hylo_merchant_id">dummy</field>
+            <field name="hylo_merchant_key">dummy</field>
+        </record>
+    </data>
+</odoo>

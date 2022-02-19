@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_outgoing_qc_receipt" model="ir.actions.report">
+            <field name="name">Outgoing QC Recipt</field>
+            <field name="model">stock.quality.control</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">quality_control_techbot.quality_outgoing_report</field>
+            <field name="report_file">quality_control_techbot.quality_outgoing_report</field>
+            <field name="print_report_name">'Outgoing Material Inspection Report'</field>
+            <field name="binding_model_id" ref="model_stock_quality_control"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
