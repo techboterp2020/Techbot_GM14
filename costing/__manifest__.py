@@ -1,15 +1,27 @@
 {
-    'name': 'Estimation',
-    'version': '1.0',
-    'author': 'Anup',
-    'category': 'Production',
-    'website': '',
+    'name': 'Costing and Estimation',
+    'version': '14.0.0.1',
     'description': """
-        Capable of Estimating
+        Module for Capable of Estimating and Costing in Production Version 14
          """,
-
-    'summary': 'Estimation',
-    'depends': ['base_setup', 'base', 'stock', 'hr', 'contacts', 'mail', 'crm', 'sale'],
+    'category': 'Production',
+    'author': 'TecbotERp',
+    'website': "https://techboterp.com",
+    'company': 'TechbotErp',
+    'license': 'LGPL-3',
+    'complexity': 'easy',
+    'images': [],
+    'sequence': -10,
+    'summary': 'Product Estimation',
+    'depends': ['base',
+                'stock',
+                'hr',
+                'contacts',
+                'mail',
+                'crm',
+                'sale',
+                'mrp'
+                ],
     'data': [
         'data/ir_sequence_data.xml',
         'data/report_template.xml',
