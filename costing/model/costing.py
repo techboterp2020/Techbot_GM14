@@ -501,15 +501,11 @@ class Costing_CRM_Lines(models.Model):
         # self.area = self.direct_material_id.area_per_unit
 
 
-
-
-
 class Inherit_MRP_Production(models.Model):
     _inherit = 'mrp.production'
 
     estimate_sequence = fields.Many2one('product.estimate.lines','Estimate Sequence')
     sale_id = fields.Many2one('sale.order', 'Sale Order')
-
 
     @api.onchange('estimate_sequence')
     def confirm_cr(self):
