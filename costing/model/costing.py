@@ -192,7 +192,7 @@ class product_cost_lines(models.Model):
         quote_name = ''
         for record in self:
             if record.name:
-                quote_name = record.name.name + ", " + record.crm_sequence
+                quote_name = record.name.name + ", " + str(record.crm_sequence)
             res.append((record.id, quote_name))
         return res
 
