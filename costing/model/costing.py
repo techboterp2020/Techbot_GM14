@@ -26,7 +26,8 @@ class product_costing(models.Model):
     margin = fields.Float('Margin', tracking=True)
     total_cost = fields.Float('Total Cost', compute='calculate_total_estimated')
     sale_order_confrim = fields.Boolean('Sale Order Confirmed',default=False)
-    expected_delivery = fields.Date('Expected Delivery',required=True)
+    expected_delivery = fields.Date('Expected Delivery') 
+    # required=True
 
     #questionairre
     site_visit = fields.Selection([('YES', 'Yes'),
@@ -109,7 +110,8 @@ class product_costing(models.Model):
             raise Warning(_('Please Fill Line Details'))
         else:
             self.status = 'confirm'
-            crm_estimate = self.env['crm.lead'].search([('crm_sequence','=',self.crm_sequence)])
+            crm_estimate = self.env['crm.lead']
+            # .search([('crm_sequence','=',self.crm_sequence)])
             for data in crm_estimate:
                 data.estimate = True
 
@@ -266,6 +268,15 @@ class Inherit_CRM(models.Model):
     sent_estimate = fields.Boolean('Estimation',default=False)
     estimate = fields.Boolean('Estimation',default=False)
     saleperson_product_line = fields.One2many('crm.product.lines', 'crm_product_id','Sale Products')
+    site_visit = fields.Selection([('YES', 'Yes'),
+                                   ('NO', 'No')], string="Site Visit Required ?", required=True)
+    technical_visit = fields.Selection([('YES', 'Yes'),
+                                        ('NO', 'No')], string="Technical Visit Required ?", required=True)
+    permission = fields.Selection([('YES', 'Yes'),
+                                   ('NO', 'No')], string="Permission Required ?", required=True)
+    boom_lift = fields.Selection([('YES', 'Yes'),
+                                  ('NO', 'No')], string="Boom lift Required ?", required=True)
+
 
     def send_to_estimate(self):
         prod_list = [(5, 0, 0)]
@@ -281,23 +292,24 @@ class Inherit_CRM(models.Model):
         print(prod_list,"#############################")
         self.sent_estimate = True
         estimate_order = self.env['product.costing'].create({
-            'crm_sequence': self.crm_sequence,
+        #     'crm_sequence': self.crm_sequence,
             'crm_ref': self.name,
             'tags_ids': self.tag_ids,
             'notes_crm':self.description,
             'date' : date.today(),
             'site_visit' : self.site_visit,
             'technical_visit' : self.technical_visit,
-            'location' : self.location,
-            'poc' : self.poc,
-            'contact_no' : self.contact_no,
+            'location' : self.partner_id.state_id.name,
+            'poc' : self.partner_id.name,
+            'contact_no' : self.phone,
             'permission' : self.permission,
             'boom_lift' : self.boom_lift,
-            'boom_lift_desc' : self.boom_lift_desc,
-            'expected_delivery' : self.expected_delivery,
+            # 'boom_lift_desc' : self.boom_lift_desc,
+            'expected_delivery' : self.date_deadline,
             'product_estimate_lines' :  prod_list
-
+        #
         })
+        print(estimate_order, 10*"AJMAL")
 
 class Costing_CRM_BOM_lines(models.Model):
     _name = 'crm.product.lines'
