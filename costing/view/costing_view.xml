@@ -277,6 +277,7 @@
                             attrs="{'invisible': [('sent_estimate','=',True)]}" icon="fa-arrow-circle-right"
                             class="oe_highlight"/>
                 </xpath>
+
                 <xpath expr="//field[@name='name']" position="before">
                     <field name="sent_estimate" invisible="1"/>
                     <field name="estimate" invisible="1"/>
@@ -316,6 +317,30 @@
                         </t>
                     </templates>
                 </xpath>
+                 <xpath expr="//form/sheet/notebook/page[@name='internal_notes']" position="after">
+                    <page string="Questionnaire Info">
+                        <group>
+                            <group>
+<!--                                <field name="expected_delivery"/>-->
+                                <field name="site_visit"/>
+                                <field name="technical_visit"/>
+<!--                                <field name="location"/>-->
+
+                            </group>
+                            <group>
+<!--                                <field name="poc"/>-->
+<!--                                <field name="contact_no"/>-->
+                                <field name="permission"/>
+                                <field name="boom_lift"/>
+<!--                                <field name="boom_lift_desc"/>-->
+                            </group>
+
+                        </group>
+
+                    </page>
+
+                </xpath>
+
                 <xpath expr="//field[@name='description']" position="attributes">
                     <attribute name="required">True</attribute>
                 </xpath>
