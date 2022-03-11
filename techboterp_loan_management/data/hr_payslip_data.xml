@@ -5,8 +5,9 @@
         <field name="category_id" ref="hr_payroll.DED"/>
         <field name="code">LOAN</field>
         <field name="sequence" eval="140"/>
-        <field name="struct_id" ref="loan_management.payroll_salary_structure_002"/>
-         <field name="condition_select">none</field>
+        <field name="struct_id" ref="techboterp_loan_management.payroll_salary_structure_002"/>
+        <!--        <field name="struct_id" ref="loan_management.payroll_salary_structure_002"/>-->
+        <field name="condition_select">none</field>
         <field name="amount_select">fix</field>
         <field name="quantity">0.0</field>
         <field name="amount_fix">0.00</field>
